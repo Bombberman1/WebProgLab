@@ -1,0 +1,76 @@
+.burger-button {
+    display: none;
+    cursor: pointer;
+    background: #FB8F1D;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+.burger-button .burger-line {
+    width: 30px;
+    height: 2px;
+    background-color: #fff;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+.mobile-menu {
+    height: auto;
+    display: none;
+    background-color: #fff;
+    position: absolute;
+    top: 80px;
+    width: 100%;
+    padding: 20px 0 20px 0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    border-radius: 40px;
+}
+.mobile-menu-list {
+    list-style: none;
+    padding: 0;
+}
+.mobile-menu-item {
+    padding-bottom: 10px;
+    color: #B8BECD;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.mobile-menu-item a{
+    text-decoration: none;
+    color: #B8BECD;
+}
+.mobile-menu-button1 {
+    margin-top: 20px;
+    padding: 20px;
+}
+.mobile-menu-button1 a {
+    color: #FB8F1D;
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 1px solid #FB8F1D;
+    padding: 13px 46px;
+    text-align: center;
+    margin: 0 auto;
+}
+.mobile-menu-button2 {
+    margin-top: 5px;
+    padding: 20px;
+}
+.mobile-menu-button2 a {
+    color: #FFFFFF;
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 8px;
+    background: #FB8F1D;
+    padding: 13px 46px;
+}

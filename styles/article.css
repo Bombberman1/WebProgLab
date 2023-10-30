@@ -1,0 +1,49 @@
+.article-container{
+    height: 774px;
+    background: #F8F8F8;
+}
+.article{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    height: 774px;
+    flex-shrink: 0;
+    padding-top: 161px;
+    max-width: 1300px;
+}
+.article__text{
+    padding: 65px 0 0 0;
+}
+.article__title{
+    max-width: 481px;
+    color: #000;
+    font-family: Playfair Display;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 50px;
+}
+.article__subtitle{
+    max-width: 392px;
+    color: #7D7987;
+    font-family: Muli;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 30px;
+}
+.article__button{
+    max-width: 164px;
+    max-height: 48px;
+    border-radius: 8px;
+    background: #FB8F1D;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 99px;
+    text-decoration: none;
+    padding: 15px 37px;
+}
+.article-img{
+    width: 659px;
+    height: 534px;
+}

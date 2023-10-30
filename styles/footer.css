@@ -1,0 +1,38 @@
+.footer-container{
+    height: 285px;
+    background: #F8F8F8;
+}
+footer{
+    height: 285px;
+    margin: 0 auto;
+    max-width: 1300px;
+}
+.upper-bar{
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    padding: 50px 0;
+    justify-content: space-between;
+}
+.upper-bar-text{
+    color: #848484;
+    font-family: Muli;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 28px;
+}
+.footer__line{
+    height: 0.6px;
+    width: 100%;
+    background: #C4C4C4;
+}
+.icon-list{
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 50px 580px 50px 530px;
+}
+.icon-list li:not(:last-child) { 
+    margin-right: 17%;
+}
