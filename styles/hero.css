@@ -75,7 +75,7 @@ select{
     font-weight: 400;
     line-height: inherit;
     appearance: none;
-    background: url('images/arrow.svg') no-repeat right;
+    background: url('../images/arrow.svg') no-repeat right;
     background-position-x: calc(100% - 30.5px);
 }
 #left_u{
