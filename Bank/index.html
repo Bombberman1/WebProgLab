@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Data</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Bank Data</h1>
+    <label for="sort-select">Sort by:</label>
+    <select id="sort-select">
+        <option value="...">...</option>
+        <option value="clients">Number of Clients</option>
+        <option value="loans">Number of Loans</option>
+    </select>
+    <input type="text" id="search-input" placeholder="Search bank...">
+    <p>Total Number of Clients: <span id="total-clients">0</span></p>
+    <p>Total Number of Loans: <span id="total-loans">0</span></p>
+    <table id="bank-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Number of Clients</th>
+                <th>Number of Loans</th>
+            </tr>
+        </thead>
+        <tbody id="bank-table-body"></tbody>
+    </table>
+    <div id="add-bank-form">
+        <h2>Add a New Bank</h2>
+        <label for="bank-name">Name:</label>
+        <input type="text" id="bank-name">
+        <label for="bank-clients">Number of Clients:</label>
+        <input type="number" id="bank-clients">
+        <label for="bank-loans">Number of Loans:</label>
+        <input type="number" id="bank-loans">
+        <button id="add-bank-button">Add Bank</button>
+    </div>
+    <script src="logic.js"></script>
+</body>
+</html>
