@@ -9,6 +9,9 @@ import privatBank from './privat-bank.jpeg';
 import monoBank from './monobank.jpg';
 import oshchadBank from './oshchad-bank.jpg';
 import backgroundFull from './backgroundFull.jpg';
+import searchIcon from './icons/search-icon.png';
+import catalogBank from './catalog-bank.avif';
+import backgroundCatalog from './background-catalog.jpg';
 
 
 const Logo = () => {
@@ -28,5 +31,6 @@ const SocialIcon = styled.img`
 
 export {
   Logo, SocialIcon, facebook, googlep, linkedin, twitter, bankHero,
-  privatBank, monoBank, oshchadBank, backgroundFull
+  privatBank, monoBank, oshchadBank, backgroundFull, searchIcon,
+  catalogBank, backgroundCatalog
 };

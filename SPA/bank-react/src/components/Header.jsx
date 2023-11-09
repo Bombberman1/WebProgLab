@@ -1,5 +1,9 @@
-import { Logo } from '../images/exporter'
-import { HeaderContainer, Navigation, LinkStyle, LogoContainer, EmptyOutfit } from './styled/Header.styled';
+import { Logo, searchIcon } from '../images/exporter'
+import { 
+  HeaderContainer, Navigation, LinkStyle, 
+  LogoContainer, EmptyOutfit, CatalogInput,
+} from './styled/Header.styled';
+import { Route, Routes } from 'react-router-dom';
 
 
 const Header = () => {
@@ -13,7 +17,15 @@ const Header = () => {
           <LinkStyle to="/catalog">Catalog</LinkStyle>
           <LinkStyle to="/cart">Cart</LinkStyle>
         </Navigation>
-        <EmptyOutfit></EmptyOutfit>
+        <EmptyOutfit>
+          <Routes>
+            <Route path="/catalog" element={
+              <div style={{display: 'flex'}}>
+                <CatalogInput type='text' param={searchIcon} />
+              </div>
+            } />
+          </Routes>
+        </EmptyOutfit>
       </HeaderContainer>
   );
 };

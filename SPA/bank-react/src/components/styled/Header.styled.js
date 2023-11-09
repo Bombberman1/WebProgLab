@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const HeaderContainer = styled.header`
+export const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
   padding: 20px 50px;
@@ -10,23 +10,26 @@ const HeaderContainer = styled.header`
 
 export const LogoContainer = styled.div`
   align-items: center;
-  width: 15%;
+  width: 30%;
 `;
 
 export const EmptyOutfit = styled.div`
-  width: 15%;
-  height: 20px;
+  width: 30%;
+  height: 45px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 `;
 
-const Navigation = styled.nav`
+export const Navigation = styled.nav`
   display: flex;
   align-items: center;
   flex: 1;
   justify-content: center;
-  width: 70%;
+  width: 40%;
 `;
 
-const LinkStyle = styled(Link)`
+export const LinkStyle = styled(Link)`
   margin: 0 10px;
   text-decoration: none;
   border: 2px solid #dadada;
@@ -44,4 +47,17 @@ const LinkStyle = styled(Link)`
   }
 `;
 
-export { HeaderContainer, Navigation, LinkStyle };
+export const CatalogInput = styled.input`
+  margin: 0 auto;
+  border: 2px solid #dadada;
+  border-radius: 20px;
+  padding: 10px;
+  background: no-repeat left center;
+  background-image: url(${({ param }) => param});
+  background-size: 20px 20px;
+  background-position-x: 5%;
+  padding-left: 40px;
+  background-color: transparent;
+  filter: invert(1);
+`;
+
