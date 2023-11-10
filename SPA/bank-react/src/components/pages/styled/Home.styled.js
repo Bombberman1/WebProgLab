@@ -45,7 +45,6 @@ export const HeroSubtitle = styled.h2`
 
 export const HomeTilesContainer = styled.div`
     display: flex;
-    justify-content: space-around;
     max-width: 95%;
     margin: 0 auto;
     padding: 130px 0 130px 0;
@@ -55,17 +54,19 @@ export const HomeTileImg = styled.img`
     border-radius: 10px;
     width: 250px;
     height: 200px;
+    object-fit: cover;
 `;
 
-export const HomeTileHeading = styled.h1`
+export const HomeTileHeading = styled.p`
     margin: 0;
     text-align: center;
     padding: 10px 0 20px 0;
     color: #474747;
+    font-weight: bold;
     font-size: 18px;
 `;
 
-export const HomeTileSubHeading = styled.h2`
+export const HomeTileSubHeading = styled.p`
     margin: 0;
     text-align: center;
     color: #929292;
@@ -79,6 +80,7 @@ export const HomeTileContainer = styled.div`
     border: 10px solid #dadada;
     border-radius: 20px;
     background-color: white;
+    margin: 0 20px;
 `
 
 export const HomeViewMore = styled.a`
