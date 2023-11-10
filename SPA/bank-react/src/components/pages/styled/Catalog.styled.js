@@ -24,42 +24,17 @@ export const FiltersItem = styled.li`
     }
 `;
 
-export const Filter = styled.select`
-    border: 2px solid #474747;
-    border-radius: 10px;
-    color: #474747;
-    width: 200px;
-    padding: 10px;
-`;
-
-export const Apply = styled.a`
-    text-decoration: none;
-    border: 2px solid #474747;
-    border-radius: 10px;
-    padding: 10px 45px;
-    color: black;
-    transition: background-color 0.3s;
-  
-    &:hover {
-        background-color: #dadada;
-    }
-  
-    &:active {
-        background-color: #464646;
-    }
-`;
-
 export const ItemsHero = styled.div`
     padding: 40px 60px 300px 60px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
 `;
 
 export const ItemContainer = styled.div`
     border: 2px solid #474747;
     border-radius: 10px;
-    margin: 15px auto;
+    margin: 15px 15px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
 `;
 

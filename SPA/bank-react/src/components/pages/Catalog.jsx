@@ -1,6 +1,6 @@
 import { 
   FiltersHeader, FiltersList, FiltersItem,
-  Filter, Apply, ItemsHero, ItemContainer,
+  ItemsHero, ItemContainer,
   ItemIndexContainer, ItemIndex, ItemImg,
   ItemHeading, ItemSubHeading, ItemBankFieldContainer,
   ItemBankFieldText, ItemBankField, ItemViewMore,
@@ -8,6 +8,8 @@ import {
 } from "./styled/Catalog.styled";
 import { catalogBank, backgroundCatalog } from "../../images/exporter";
 import { Banks } from "./catalog-logic/logic";
+import { Apply } from "./catalog-components/ApplyButton";
+import { Filter } from "./catalog-components/FilterSelect";
 
 
 function CatalogPage() {
@@ -19,7 +21,18 @@ function CatalogPage() {
               <Filter>
                 <option value="...">Filter by:</option>
                 <option value="clients">Number of Clients</option>
+              </Filter>
+            </FiltersItem>
+            <FiltersItem>
+              <Filter>
+                <option value="...">Filter by:</option>
                 <option value="loans">Number of Loans</option>
+              </Filter>
+            </FiltersItem>
+            <FiltersItem>
+              <Filter>
+                <option value="...">Filter by:</option>
+                <option value="price">Price</option>
               </Filter>
             </FiltersItem>
           </FiltersList>
