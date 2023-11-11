@@ -8,22 +8,6 @@ export const FiltersHeader = styled.header`
     border-bottom: 10px solid #dadada;;
 `;
 
-export const FiltersList = styled.ul`
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-`;
-
-export const FiltersItem = styled.li`
-    display: flex;
-    margin: 0 auto;
-
-    &:not(:last-child) { 
-        margin-right: 30px;  
-    }
-`;
-
 export const ItemsHero = styled.div`
     padding: 40px 60px 300px 60px;
     display: flex;
