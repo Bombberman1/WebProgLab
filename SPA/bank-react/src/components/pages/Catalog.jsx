@@ -6,27 +6,39 @@ import {
   ItemViewMoreContainer, ItemDataContainer
 } from "./styled/Catalog.styled";
 import { catalogBank, backgroundCatalog } from "../../images/exporter";
-import { Banks } from "./catalog-logic/logic";
-import { Apply } from "./catalog-components/ApplyButton";
+import { Apply, applyFilters } from "./catalog-components/ApplyButton";
 import { FiltersList } from "./catalog-components/FilterSelect";
+import { useState } from "react";
 
+function CatalogPage({ banks, catalogSearch }) {
+    const [sortedBanks, setSortedBanks] = useState([...banks]);
 
-function CatalogPage() {
+    const [selectedFilters, setSelectedFilters] = useState([
+      { value: "" },
+      { value: "" },
+      { value: "" },
+    ]);
+
+    const handleApplyFilters = () => {
+      const updatedBanks = applyFilters(banks, selectedFilters, catalogSearch);
+      setSortedBanks(updatedBanks);
+    };
+
     return (
       <div>
         <FiltersHeader>
-          <FiltersList></FiltersList>
-          <Apply href="#">Apply</Apply>
+          <FiltersList setSelectedFilters={setSelectedFilters}></FiltersList>
+          <Apply onClick={handleApplyFilters}>Apply</Apply>
         </FiltersHeader>
         <ItemsHero style={{
           backgroundImage: `url(${backgroundCatalog})`,
-          backgroundSize: '300px 300px',
+          backgroundSize: '500px 500px',
           backgroundRepeat: 'repeat',
         }}>
-          {Banks.map((bank) => (
-            <ItemContainer key={bank.index}>
+          {sortedBanks.map((bank) => (
+            <ItemContainer key={bank.id}>
               <ItemIndexContainer>
-                <ItemIndex>{`Bank ${bank.index}`}</ItemIndex>
+                <ItemIndex>{`Bank ${bank.id}`}</ItemIndex>
               </ItemIndexContainer>
               <ItemDataContainer>
                 <div style={{height: '236px', width: '200px'}}>
@@ -56,7 +68,7 @@ function CatalogPage() {
                     </ItemBankField>
                   </ItemBankFieldContainer>
                   <ItemViewMoreContainer>
-                    <ItemViewMore href="#">View more</ItemViewMore>
+                    <ItemViewMore href={`/bank/${bank.id}`}>View more</ItemViewMore>
                   </ItemViewMoreContainer>
                 </div>
               </ItemDataContainer>

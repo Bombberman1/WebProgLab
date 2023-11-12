@@ -6,7 +6,7 @@ import {
 import { Route, Routes } from 'react-router-dom';
 
 
-const Header = () => {
+const Header = ({ catalogSearchChange }) => {
   return (
       <HeaderContainer>
         <LogoContainer>
@@ -21,7 +21,7 @@ const Header = () => {
           <Routes>
             <Route path="/catalog" element={
               <div style={{display: 'flex'}}>
-                <CatalogInput type='text' param={searchIcon} />
+                <CatalogInput type='text' param={searchIcon} onChange={catalogSearchChange} />
               </div>
             } />
           </Routes>

@@ -2,17 +2,36 @@ import styled from "styled-components";
 
 
 const FilterOptions = [
-    { value: "clients", text: "Number of Clients" },
-    { value: "loans", text: "Number of Loans" },
-    { value: "price", text: "Price" },
+    { id: 1, value: "clients", text: "Number of Clients" },
+    { id: 2, value: "loans", text: "Number of Loans" },
+    { id: 3, value: "price", text: "Price" },
 ]
 
-export const FiltersList = (() => (
+const filterChange = (event, setSelectedFilters) => {
+    const selectedOption = event.target;
+    const findedOptionByVal = FilterOptions.find((opt) => opt.value == selectedOption.value);
+    const findedOptionById = FilterOptions.find((opt) => opt.id == selectedOption.value);
+    if (findedOptionByVal) {
+      setSelectedFilters((prevFilters) => {
+        const newFilters = [...prevFilters];
+        newFilters[findedOptionByVal.id - 1] = { value: selectedOption.value };
+        return newFilters;
+      });
+    } else if (findedOptionById) {
+      setSelectedFilters((prevFilters) => {
+        const newFilters = [...prevFilters];
+        newFilters[findedOptionById.id - 1] = { value: "" };
+        return newFilters;
+      });
+    }
+  };
+
+export const FiltersList = (({ setSelectedFilters }) => (
     <FiltersListStyled>
         {FilterOptions.map((filterOption) => (
             <FiltersItem>
-                <Filter>
-                    <option>Filter by:</option>
+                <Filter onChange={(event) => filterChange(event, setSelectedFilters)}>
+                    <option value={filterOption.id}>Filter by:</option>
                     <option value={filterOption.value}>{filterOption.text}</option>
                 </Filter>
             </FiltersItem>

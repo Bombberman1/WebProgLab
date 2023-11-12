@@ -12,6 +12,12 @@ import backgroundFull from './backgroundFull.jpg';
 import searchIcon from './icons/search-icon.png';
 import catalogBank from './catalog-bank.avif';
 import backgroundCatalog from './background-catalog.jpg';
+import itemPageBank from './item-page-bank.jpg';
+import loadingGif from './loading.gif';
+import itemPageBackground from './item-page-background.jpg';
+import creditAgricoleBank from './credit-agricole.jpg';
+import ukrGasBank from './ukr-gas.jpg';
+import pumbBank from './pumb.png';
 
 
 const Logo = () => {
@@ -32,5 +38,6 @@ const SocialIcon = styled.img`
 export {
   Logo, SocialIcon, facebook, googlep, linkedin, twitter, bankHero,
   privatBank, monoBank, oshchadBank, backgroundFull, searchIcon,
-  catalogBank, backgroundCatalog
+  catalogBank, backgroundCatalog, itemPageBank, loadingGif,
+  itemPageBackground, creditAgricoleBank, ukrGasBank, pumbBank,
 };

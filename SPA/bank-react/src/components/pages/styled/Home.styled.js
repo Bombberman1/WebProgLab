@@ -80,10 +80,10 @@ export const HomeTileContainer = styled.div`
     border: 10px solid #dadada;
     border-radius: 20px;
     background-color: white;
-    margin: 0 20px;
+    margin: 20px 20px;
 `
 
-export const HomeViewMore = styled.a`
+export const HomeViewMore = styled.button`
     text-decoration: none;
     padding: 15px 45px;
     background-color: #474747;
