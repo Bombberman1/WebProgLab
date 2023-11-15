@@ -5,7 +5,7 @@ import {
   ItemBankFieldText, ItemBankField, ItemViewMore,
   ItemViewMoreContainer, ItemDataContainer
 } from "./styled/Catalog.styled";
-import { catalogBank, backgroundCatalog } from "../../images/exporter";
+import { catalogBank, backgroundCatalog, loadingGif } from "../../images/exporter";
 import { Apply, applyFilters } from "./catalog-components/ApplyButton";
 import { FiltersList } from "./catalog-components/FilterSelect";
 import { useState } from "react";
@@ -19,12 +19,20 @@ function CatalogPage({ banks, catalogSearch }) {
       { value: "" },
     ]);
 
-    const handleApplyFilters = () => {
-      const updatedBanks = applyFilters(banks, selectedFilters, catalogSearch);
-      setSortedBanks(updatedBanks);
+    const [spinnerLoader, setSpinnerLoader] = useState(false);
+
+    const handleApplyFilters = async () => {
+      const updatedBanks = await applyFilters(banks, selectedFilters, catalogSearch);
+      if (updatedBanks) {
+        setSpinnerLoader(false);
+        setSortedBanks(updatedBanks);
+      } else {
+        setSpinnerLoader(true);
+      }
     };
 
-    return (
+    if (!spinnerLoader) {
+      return (
       <div>
         <FiltersHeader>
           <FiltersList setSelectedFilters={setSelectedFilters}></FiltersList>
@@ -76,7 +84,16 @@ function CatalogPage({ banks, catalogSearch }) {
           ))}
         </ItemsHero>
       </div>
-    );
+      );
+    } else {
+      return (
+        <div style={{ height: '100vh', display: 'flex' }}>
+          <img src={loadingGif} style={{margin: '0 auto'}}></img>
+        </div>
+      );
+    }
+
+    
   }
   
 export default CatalogPage;

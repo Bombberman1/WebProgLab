@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { getSortedWithFilter } from "../../api";
 
 
 export const Apply = styled.button`
@@ -19,26 +20,24 @@ export const Apply = styled.button`
     }
 `;
 
-export const applyFilters = (banks, selectedFilters, catalogSearch) => {
-    let sortedBanks = [...banks];
+export const applyFilters = async (banks, selectedFilters, catalogSearch) => {
+    let sortedBanks = [];
+    let filter = "";
+    for (let i = selectedFilters.length; i > 0; i--) {
+        if (selectedFilters[i - 1].value !== "") {
+            filter = selectedFilters[i - 1];
+            break;
+        }
+    }
+    if (filter) {
+        const data = await getSortedWithFilter(filter);
+        sortedBanks.push(...data)
+    } else {
+        sortedBanks = [...banks];
+    }
     if (catalogSearch) {
         sortedBanks = sortedBanks.filter((bank) => {
             return bank.name.toLowerCase().includes(catalogSearch.toLowerCase());
-        });
-    }
-    if (selectedFilters[0].value === "clients") {
-        sortedBanks.sort((bankL, bankR) => {
-            return bankR.clients - bankL.clients;
-        });
-    }
-    if (selectedFilters[1].value === "loans") {
-        sortedBanks.sort((bankL, bankR) => {
-            return bankR.loans - bankL.loans;
-        });
-    }
-    if (selectedFilters[2].value === "price") {
-        sortedBanks.sort((bankL, bankR) => {
-            return bankR.price - bankL.price;
         });
     }
     return sortedBanks;
