@@ -9,11 +9,12 @@ export const getBanks = async () => {
     }
 }
 
-export const getSortedWithFilter = async (filterParam) => {
+export const getSortedWithFilter = async (filterParam, searchParam) => {
     try {
         const response = await axios.get('http://localhost:8080/api/banks/filter', {
             params: {
-                filter: filterParam.value
+                filter: filterParam.value,
+                search: searchParam
             }
         });
         return response.data;

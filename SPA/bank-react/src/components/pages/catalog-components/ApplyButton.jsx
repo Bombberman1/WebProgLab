@@ -30,15 +30,21 @@ export const applyFilters = async (banks, selectedFilters, catalogSearch) => {
         }
     }
     if (filter) {
-        const data = await getSortedWithFilter(filter);
-        sortedBanks.push(...data)
-    } else {
-        sortedBanks = [...banks];
+        let data = [];
+        if (catalogSearch != "") {
+            console.log(filter, catalogSearch);
+            data = await getSortedWithFilter(filter, catalogSearch);
+        } else {
+            data = await getSortedWithFilter(filter, "");
+        }
+        sortedBanks.push(...data);
+    } else if (catalogSearch != "" && !filter) {
+        const data = await getSortedWithFilter("", catalogSearch);
+        sortedBanks.push(...data);
     }
-    if (catalogSearch) {
-        sortedBanks = sortedBanks.filter((bank) => {
-            return bank.name.toLowerCase().includes(catalogSearch.toLowerCase());
-        });
+    else {
+        const data = await getSortedWithFilter("", "");
+        sortedBanks.push(...data);
     }
     return sortedBanks;
 };

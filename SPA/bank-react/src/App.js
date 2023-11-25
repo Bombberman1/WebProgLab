@@ -24,7 +24,7 @@ function App() {
     getBanks().then((bankData) => setBanks(bankData));
   }, []);
 
-  if (banks.length) {
+  if (banks && banks.length) {
     return (
       <BrowserRouter>
         <Header catalogSearchChange={handleCatalogSearchChange} />

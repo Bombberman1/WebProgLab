@@ -30,21 +30,45 @@ public class BankService {
         return new LinkedList<>(banks.values());
     }
 
-    public LinkedList<Bank> sortBanksWithFilter(String filterName) {
-        switch (filterName){
-            case "clients":
+    public LinkedList<Bank> sortBanksWithFilter(String filterName, String search) {
+        switch (filterName) {
+            case "clients" -> {
                 return banks.values().stream()
                         .sorted(Comparator.comparingInt(Bank::getClients).reversed())
+                        .filter((bank) -> {
+                            if (!search.isEmpty()) {
+                                return bank.getName().contains(search);
+                            } else return true;
+                        })
                         .collect(Collectors.toCollection(LinkedList::new));
-            case "loans":
+            }
+            case "loans" -> {
                 return banks.values().stream()
                         .sorted(Comparator.comparingInt(Bank::getLoans).reversed())
+                        .filter((bank) -> {
+                            if (!search.isEmpty()) {
+                                return bank.getName().contains(search);
+                            } else return true;
+                        })
                         .collect(Collectors.toCollection(LinkedList::new));
-            case "price":
+            }
+            case "price" -> {
                 return banks.values().stream()
                         .sorted(Comparator.comparingInt(Bank::getPrice).reversed())
+                        .filter((bank) -> {
+                            if (!search.isEmpty()) {
+                                return bank.getName().contains(search);
+                            } else return true;
+                        })
                         .collect(Collectors.toCollection(LinkedList::new));
-        } return null;
+            }
+        }
+        if (!search.isEmpty()) {
+            return banks.values().stream()
+                    .filter((bank) -> bank.getName().contains(search))
+                    .collect(Collectors.toCollection(LinkedList::new));
+        }
+        return new LinkedList<>(banks.values());
     }
 
     public Bank getBankById(Integer bankId) {

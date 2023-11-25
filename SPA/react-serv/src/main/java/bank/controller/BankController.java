@@ -21,13 +21,10 @@ public class BankController {
     }
 
     @GetMapping(path = "/filter")
-    public ResponseEntity<LinkedList<Bank>> getSortedWithFilter(@RequestParam(name = "filter", defaultValue = "") String filterName) {
-        LinkedList<Bank> sorted = bankService.sortBanksWithFilter(filterName);
-        if (sorted != null) {
-            return new ResponseEntity<>(sorted, HttpStatus.OK);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+    public ResponseEntity<LinkedList<Bank>> getSortedWithFilter(@RequestParam(name = "filter", defaultValue = "") String filterName,
+                                                                @RequestParam(name = "search", defaultValue = "") String search) {
+        LinkedList<Bank> sorted = bankService.sortBanksWithFilter(filterName, search);
+        return new ResponseEntity<>(sorted, HttpStatus.OK);
     }
 
     @GetMapping(path = "/{id}")
