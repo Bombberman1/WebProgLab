@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AddToCartButton, BackButton, DescriptionButton, FieldContainer, FieldInput, FieldSelect, FieldText, FieldsContainer, ItemButtonsContainer, ItemDescription, ItemImage, ItemInfoContainer, ItemInfoWrapper, ItemName, Price, PriceButtonsContainer, PriceContainer } from "./styled/Item.styled";
 import { itemPageBackground, itemPageBank } from "../../images/exporter";
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../actions';
 
 
 
@@ -12,6 +14,20 @@ function ItemPage( { banks } ) {
     const [bank, setBank] = useState();
     const [showShortInfo, setShowShortInfo] = useState(true);
     const [price, setPrice] = useState(0);
+
+    const navigate = useNavigate();
+
+    const dispatch = useDispatch();
+
+    const handleAddToCart = () => {
+        let amount = 1;
+        if (!isNaN(inputValue) && inputValue != 0) {
+            amount = parseInt(inputValue);
+        } else if (!isNaN(selectValue) && selectValue !== "") {
+            amount = parseInt(selectValue);
+        }
+        dispatch(addToCart(bank, amount));
+    };
 
     useEffect(() => {
         const selectedBank = banks.find((bankParam) => bankParam.id === itemId);
@@ -122,8 +138,8 @@ function ItemPage( { banks } ) {
                     <PriceContainer>
                         <Price>Price: ${price}</Price>
                         <PriceButtonsContainer>
-                            <BackButton href="/catalog">Go back</BackButton>
-                            <AddToCartButton>Add to cart</AddToCartButton>
+                            <BackButton onClick={() => navigate('/catalog')}>Go back</BackButton>
+                            <AddToCartButton onClick={handleAddToCart}>Add to cart</AddToCartButton>
                         </PriceButtonsContainer>
                     </PriceContainer>
                 </div>

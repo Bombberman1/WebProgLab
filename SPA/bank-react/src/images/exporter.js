@@ -18,6 +18,7 @@ import itemPageBackground from './item-page-background.jpg';
 import creditAgricoleBank from './credit-agricole.jpg';
 import ukrGasBank from './ukr-gas.jpg';
 import pumbBank from './pumb.png';
+import cartBank from './cart-bank.jpg';
 
 
 const Logo = () => {
@@ -40,4 +41,5 @@ export {
   privatBank, monoBank, oshchadBank, backgroundFull, searchIcon,
   catalogBank, backgroundCatalog, itemPageBank, loadingGif,
   itemPageBackground, creditAgricoleBank, ukrGasBank, pumbBank,
+  cartBank
 };

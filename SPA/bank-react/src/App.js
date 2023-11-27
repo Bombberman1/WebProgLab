@@ -11,6 +11,8 @@ import { banksData } from './components/pages/catalog-logic/logic';
 import axios from "axios";
 import { loadingGif } from './images/exporter';
 import { getBanks } from './components/api';
+import { Provider } from 'react-redux';
+import store from './components/store';
 
 function App() {
 
@@ -26,16 +28,18 @@ function App() {
 
   if (banks && banks.length) {
     return (
-      <BrowserRouter>
-        <Header catalogSearchChange={handleCatalogSearchChange} />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/catalog" element={<CatalogPage banks={banks} catalogSearch={catalogSearch} />} />
-          <Route path="/bank/:id" element={<ItemPage banks={banks} />} />
-          <Route path="/cart" element={<CartPage />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Header catalogSearchChange={handleCatalogSearchChange} />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/catalog" element={<CatalogPage banks={banks} catalogSearch={catalogSearch} />} />
+            <Route path="/bank/:id" element={<ItemPage banks={banks} />} />
+            <Route path="/cart" element={<CartPage />} />
+          </Routes>
+          <Footer />
+        </BrowserRouter>
+      </Provider>
     );
   } else {
     return (

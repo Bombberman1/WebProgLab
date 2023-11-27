@@ -9,9 +9,12 @@ import { catalogBank, backgroundCatalog, loadingGif } from "../../images/exporte
 import { Apply, applyFilters } from "./catalog-components/ApplyButton";
 import { FiltersList } from "./catalog-components/FilterSelect";
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 function CatalogPage({ banks, catalogSearch }) {
     const [sortedBanks, setSortedBanks] = useState([...banks]);
+
+    const navigate = useNavigate();
 
     const [selectedFilters, setSelectedFilters] = useState([
       { value: "" },
@@ -76,7 +79,7 @@ function CatalogPage({ banks, catalogSearch }) {
                     </ItemBankField>
                   </ItemBankFieldContainer>
                   <ItemViewMoreContainer>
-                    <ItemViewMore href={`/bank/${bank.id}`}>View more</ItemViewMore>
+                    <ItemViewMore onClick={() => navigate(`/bank/${bank.id}`)}>View more</ItemViewMore>
                   </ItemViewMoreContainer>
                 </div>
               </ItemDataContainer>
