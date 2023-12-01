@@ -28,6 +28,7 @@
     font-weight: 600;
     line-height: 120px;
     text-decoration: none;
+    text-wrap: nowrap;
 }
 
 .img-list{
