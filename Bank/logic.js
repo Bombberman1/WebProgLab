@@ -29,16 +29,27 @@ function displayBankData(data) {
     });
 }
 
-function sort(selectedOption) {
-    const sortedData = bankData.slice().sort((a, b) => {
+function sort(selectedOption, data) {
+    const searchTerm = searchInput.value.toLowerCase();
+    let sortedData = data.slice().sort((a, b) => {
         return b[selectedOption] - a[selectedOption];
     });
+    if (searchInput.value !== "") {
+        sortedData = sortedData.filter((bank) => {
+            return bank.name.toLowerCase().includes(searchTerm);
+        });
+    }
+    calculateTotal(sortedData);
     displayBankData(sortedData);
 }
 
 sortSelect.addEventListener("change", () => {
     const selectedOption = sortSelect.value;
-    sort(selectedOption);
+    const searchTerm = searchInput.value.toLowerCase();
+    const filteredData = bankData.filter((bank) => {
+        return bank.name.toLowerCase().includes(searchTerm);
+    });
+    sort(selectedOption, [...filteredData]);
 });
 
 searchInput.addEventListener("input", () => {
@@ -46,18 +57,18 @@ searchInput.addEventListener("input", () => {
     const filteredData = bankData.filter((bank) => {
         return bank.name.toLowerCase().includes(searchTerm);
     });
-    displayBankData(filteredData);
+    sort(sortSelect.value, [...filteredData]);
 });
 
-function calculateTotal() {
-    const totalClientsCount = bankData.reduce((acc, bank) => acc + bank.clients, 0);
-    const totalLoansCount = bankData.reduce((acc, bank) => acc + bank.loans, 0);
+function calculateTotal(data) {
+    const totalClientsCount = data.reduce((acc, bank) => acc + bank.clients, 0);
+    const totalLoansCount = data.reduce((acc, bank) => acc + bank.loans, 0);
     totalClients.textContent = totalClientsCount;
     totalLoans.textContent = totalLoansCount;
 }
 
 displayBankData(bankData);
-calculateTotal();
+calculateTotal(bankData);
 
 const addBankForm = document.getElementById("add-bank-form");
 const bankNameInput = document.getElementById("bank-name");
@@ -73,9 +84,7 @@ addBankButton.addEventListener("click", () => {
     if (name && clients > 0 && loans > 0) {
         const newBank = { name, clients, loans };
         bankData.push(newBank);
-        displayBankData(bankData);
-        calculateTotal();
-        sort(sortSelect.value);
+        sort(sortSelect.value, bankData);
         bankNameInput.value = "";
         bankClientsInput.value = "";
         bankLoansInput.value = "";
@@ -119,9 +128,7 @@ function createEditField(bank, rowIndex) {
                         bankDataConstant[i].name = editedName;
                         bankDataConstant[i].clients = editedClients;
                         bankDataConstant[i].loans = editedLoans;
-                        displayBankData(bankData);
-                        calculateTotal();
-                        sort(sortSelect.value);
+                        sort(sortSelect.value, bankData);
                 }
             }
         } else {
@@ -130,8 +137,7 @@ function createEditField(bank, rowIndex) {
     });
 
     cancelEditButton.addEventListener("click", () => {
-        displayBankData(bankData);
-        sort(sortSelect.value);
+        sort(sortSelect.value, bankData);
     });
 
     return editRow;

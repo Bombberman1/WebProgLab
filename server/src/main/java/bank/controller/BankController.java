@@ -38,9 +38,9 @@ public class BankController {
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<LinkedList<Bank>>
     delete(@PathVariable("id") Integer bankId) {
-        return bankService.deleteBankById(bankId) == null
+        return bankService.deleteBankById(bankId) != null
                 ? new ResponseEntity<>(bankService.getBanks(), HttpStatus.OK)
-                : ResponseEntity.status(HttpStatus.OK).build();
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @PutMapping(path = "/{id}")
