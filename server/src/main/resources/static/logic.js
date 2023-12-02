@@ -1,9 +1,8 @@
-import { getAllBanks, postBank, editBank, deleteBank, getBankById } from "./api.js";
+import { getAllBanks, postBank, editBank, deleteBank } from "./api.js";
 
 
 let bankData = [];
 let selectedBank = null;
-let maxLength = parseInt(localStorage.getItem('maxLength')) || 0;
 
 const sortSelect = document.getElementById("sort-select");
 let searchInput = document.getElementById("search-input");
@@ -35,20 +34,29 @@ function displayBankData(data) {
 const refetchAllBanks = async () => {
     const allBanks = await getAllBanks();
     bankData = allBanks;
-    sort(sortSelect.value);
-    calculateTotal();
+    sort(sortSelect.value, bankData);
 }
 
-function sort(selectedOption) {
-    const sortedData = bankData.slice().sort((a, b) => {
+function sort(selectedOption, data) {
+    let sortedData = data.slice().sort((a, b) => {
         return b[selectedOption] - a[selectedOption];
     });
+    if (searchInput.value && searchInput.value !== "") {
+        sortedData = sortedData.filter((bank) => {
+            return bank.name.toLowerCase().includes(searchInput.value.toLowerCase());
+        });
+    }
+    calculateTotal(sortedData);
     displayBankData(sortedData);
 }
 
 sortSelect.addEventListener("change", () => {
     const selectedOption = sortSelect.value;
-    sort(selectedOption);
+    const searchTerm = searchInput.value.toLowerCase();
+    const filteredData = bankData.filter((bank) => {
+        return bank.name.toLowerCase().includes(searchTerm);
+    });
+    sort(selectedOption, [...filteredData]);
 });
 
 searchInput.addEventListener("input", () => {
@@ -56,15 +64,12 @@ searchInput.addEventListener("input", () => {
     const filteredData = bankData.filter((bank) => {
         return bank.name.toLowerCase().includes(searchTerm);
     });
-    displayBankData(filteredData);
-    if (!searchTerm) {
-        sort(sortSelect.value);
-    }
+    sort(sortSelect.value, [...filteredData]);
 });
 
-function calculateTotal() {
-    const totalClientsCount = bankData.reduce((acc, bank) => acc + bank.clients, 0);
-    const totalLoansCount = bankData.reduce((acc, bank) => acc + bank.loans, 0);
+function calculateTotal(data) {
+    const totalClientsCount = data.reduce((acc, bank) => acc + bank.clients, 0);
+    const totalLoansCount = data.reduce((acc, bank) => acc + bank.loans, 0);
     totalClients.textContent = totalClientsCount;
     totalLoans.textContent = totalLoansCount;
 }
@@ -90,26 +95,26 @@ addBankButton.addEventListener("click", () => {
             name,
             clients,
             loans,
-        }).then(refetchAllBanks);
-        maxLength++;
-        localStorage.setItem('maxLength', maxLength);
+        }).then(response => response.json())
+        .then(data => {
+            bankData = data;
+            sort(sortSelect.value, bankData);
+        });
     }
     else {
         alert("Incorrect data");
     }
 });
 
-const findIdOfRow = async () => {
-    for (let i = 1; i < maxLength + 1; i++) {
-        try {
-            const expectedBank = await getBankById(i);
-            if (expectedBank.name == selectedBank.name &&
-                expectedBank.clients == selectedBank.clients && 
-                expectedBank.loans == selectedBank.loans) 
-                {
-                    return i;
-            }
-        } catch (error) {}
+const findIdOfRow = () => {
+    for (let i = 0; i < bankData.length; i++) {
+        const expectedBank = bankData[i]
+        if (expectedBank.name == selectedBank.name &&
+            expectedBank.clients == selectedBank.clients && 
+            expectedBank.loans == selectedBank.loans) 
+            {
+                return expectedBank.id;
+        }
     }
 }
 
@@ -131,39 +136,39 @@ function createEditField(bank, rowIndex) {
     const deleteEditButton = editRow.querySelector("#delete-edit");
     const cancelEditButton = editRow.querySelector("#cancel-edit");
 
-    saveEditButton.addEventListener("click", async () => {
-        searchInput = "";
+    saveEditButton.addEventListener("click", () => {
         const editedName = document.getElementById("edit-name").value;
         const editedClients = parseInt(document.getElementById("edit-clients").value);
         const editedLoans = parseInt(document.getElementById("edit-loans").value);
         if (editedName && editedClients > 0 && editedLoans > 0) {
-            const id = await findIdOfRow();
+            const id = findIdOfRow();
             editBank(id, {
                 name: editedName,
                 clients: editedClients,
                 loans: editedLoans,
-            }).then(refetchAllBanks);
+            }).then(response => response.json())
+            .then(data => {
+                bankData = data;
+                sort(sortSelect.value, bankData);
+            });
         } else {
             alert("Incorrect data");
         }
     });
 
-    deleteEditButton.addEventListener("click", async () => {
-        searchInput = "";
-        const id = await findIdOfRow();
-        deleteBank(id).then(refetchAllBanks);
+    deleteEditButton.addEventListener("click", () => {
+        const id = findIdOfRow();
+        deleteBank(id)
+        .then(response => response.json())
+        .then(data => {
+            bankData = data;
+            sort(sortSelect.value, bankData);
+        });
     });
 
     cancelEditButton.addEventListener("click", () => {
-        searchInput = "";
-        sort(sortSelect.value);
+        sort(sortSelect.value, bankData);
     });
 
     return editRow;
 }
-
-window.addEventListener('load', () => {
-    maxLength = parseInt(localStorage.getItem('maxLength')) || 0;
-});
-
-localStorage.setItem('maxLength', maxLength);
