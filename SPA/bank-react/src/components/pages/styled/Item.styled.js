@@ -143,4 +143,12 @@ export const AddToCartButton = styled.button`
     text-align: center;
     cursor: pointer;
     margin-left: 20px;
+
+    &:hover {
+        background-color: #5E6666 !important;
+    }
+  
+    &:active {
+        background-color: #7C8181 !important;
+    }
 `;

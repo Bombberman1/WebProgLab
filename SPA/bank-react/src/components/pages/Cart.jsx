@@ -59,7 +59,7 @@ function CartPage() {
         </TotalPriceContainer>
         <CartButtonsContainer>
           <BackButton onClick={() => navigate('/catalog')}>Back to Catalog</BackButton>
-          <ContinueButton>Continue</ContinueButton>
+          <ContinueButton onClick={() => navigate('/checkout')}>Continue</ContinueButton>
         </CartButtonsContainer>
       </CartPageContainer>
     </div>

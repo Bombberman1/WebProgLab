@@ -13,6 +13,8 @@ import { loadingGif } from './images/exporter';
 import { getBanks } from './components/api';
 import { Provider } from 'react-redux';
 import store from './components/store';
+import CheckoutPage from './components/pages/Checkout';
+import SuccessPage from './components/pages/Success';
 
 function App() {
 
@@ -36,6 +38,8 @@ function App() {
             <Route path="/catalog" element={<CatalogPage banks={banks} catalogSearch={catalogSearch} />} />
             <Route path="/bank/:id" element={<ItemPage banks={banks} />} />
             <Route path="/cart" element={<CartPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/success" element={<SuccessPage />} />
           </Routes>
           <Footer />
         </BrowserRouter>
