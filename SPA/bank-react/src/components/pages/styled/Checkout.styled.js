@@ -16,7 +16,7 @@ export const FieldsContainer = styled.div`
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
-    padding: 10px 300px;
+    padding: 10px 20%;
 `;
 
 export const FieldContainer = styled.div`
