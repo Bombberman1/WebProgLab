@@ -8,6 +8,10 @@ const initialState = {
 
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
+    case 'SET':
+      return {
+        cart: action.setting,
+      };
     case 'ADD_TO_CART':
       const bankInStoreId = state.cart.findIndex((item) => item.bank.id === action.payload.bank.id);
       

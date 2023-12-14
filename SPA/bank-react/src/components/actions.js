@@ -20,3 +20,11 @@ export const incrementAmount = (bankId) => ({
     type: 'DECREMENT_AMOUNT',
     payload: bankId,
   });
+
+export const setCart = () => {
+    const userCart = JSON.parse(localStorage.getItem('user'))[1];
+    return {
+        type: 'SET',
+        setting: userCart,
+    };
+};

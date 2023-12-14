@@ -14,7 +14,7 @@ function RegisterPage({setUser}) {
   const findUser = (email) => {
     const users = JSON.parse(localStorage.getItem('users'));
     if (users) {
-      return users.find((user) => user.email === email);
+      return users.find((user) => user[0].email === email);
     }
   }
 
@@ -27,15 +27,17 @@ function RegisterPage({setUser}) {
     if (!existing) {
       const users = JSON.parse(localStorage.getItem('users'));
       if (users) {
-        users.push({email: inpEmail, password: inpPassword});
+        users.push([{email: inpEmail, password: inpPassword}, []]);
         localStorage.setItem('users', JSON.stringify(users));
-        localStorage.setItem('user', JSON.stringify({email: inpEmail, password: inpPassword}));
-        setUser({email: inpEmail, password: inpPassword});
+        localStorage.setItem('user', JSON.stringify([{email: inpEmail, password: inpPassword}, []]));
+        localStorage.removeItem('persist:root');
+        setUser([{email: inpEmail, password: inpPassword}, []]);
         navigate('/');
       } else {
-        localStorage.setItem('users', JSON.stringify([{email: inpEmail, password: inpPassword}]));
-        localStorage.setItem('user', JSON.stringify({email: inpEmail, password: inpPassword}));
-        setUser({email: inpEmail, password: inpPassword});
+        localStorage.setItem('users', JSON.stringify([[{email: inpEmail, password: inpPassword}, []]]));
+        localStorage.setItem('user', JSON.stringify([{email: inpEmail, password: inpPassword}, []]));
+        localStorage.removeItem('persist:root');
+        setUser([{email: inpEmail, password: inpPassword}, []]);
         navigate('/');
       }
     } else {

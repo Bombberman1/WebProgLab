@@ -10,14 +10,20 @@ function LoginPage({setUser}) {
   const findUser = (email, password) => {
     const users = JSON.parse(localStorage.getItem('users'));
     if (users) {
-      return users.find((user) => user.email === email && user.password === password);
+      return users.find((user) => user[0].email === email && user[0].password === password);
     }
-  }
+  };
 
   const handleLogin = (inpEmail, inpPassword) => {
     const current = findUser(inpEmail, inpPassword);
     if (current) {
-      localStorage.setItem('user', JSON.stringify(current));
+      localStorage.setItem('user', JSON.stringify([current[0], current[1]]));
+      localStorage.setItem('persist:root', JSON.stringify(
+        {
+          cart: JSON.stringify(current[1]),
+          _persist: "{\"version\":-1,\"rehydrated\":true}"
+        }
+      ));
       setUser(current);
       navigate('/');
     } else {

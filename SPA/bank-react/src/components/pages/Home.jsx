@@ -3,12 +3,26 @@ import {
   HomeTilesContainer, HomeViewMore, HomeViewMoreContainer
 } from "./styled/Home.styled";
 import { backgroundFull } from "../../images/exporter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HomeTiles } from "./home-components/HomeTiles";
+import { useDispatch } from "react-redux";
+import { setCart } from "../actions";
 
 
 function HomePage() {
   const [elementsOnScreen, setElementsOnScreen] = useState(3);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const storageStored = JSON.parse(localStorage.getItem('persist:root'));
+    if (storageStored) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      console.log(storageStored.cart);
+      user[1] = JSON.parse(storageStored.cart);
+      localStorage.setItem('user', JSON.stringify(user));
+    }
+    dispatch(setCart());
+  }, []);
 
   const viewMore = () => {
     setElementsOnScreen(elementsOnScreen + 3);
