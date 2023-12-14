@@ -20,6 +20,7 @@ import ukrGasBank from './ukr-gas.jpg';
 import pumbBank from './pumb.png';
 import cartBank from './cart-bank.jpg';
 import tick from './checked.png';
+import exitIcon from './icons/exit.png'
 
 
 const Logo = () => {
@@ -37,10 +38,20 @@ const SocialIcon = styled.img`
   margin-left: 10px;
 `;
 
+const ExitIcon = () => {
+  return <StyledExit src={exitIcon} alt="Exit" />;
+};
+
+const StyledExit = styled.img`
+  display: flex;
+  width: 30px;
+  height: 30px;
+`;
+
 export {
   Logo, SocialIcon, facebook, googlep, linkedin, twitter, bankHero,
   privatBank, monoBank, oshchadBank, backgroundFull, searchIcon,
   catalogBank, backgroundCatalog, itemPageBank, loadingGif,
   itemPageBackground, creditAgricoleBank, ukrGasBank, pumbBank,
-  cartBank, tick
+  cartBank, tick, ExitIcon
 };

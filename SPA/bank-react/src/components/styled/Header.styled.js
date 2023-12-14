@@ -61,3 +61,25 @@ export const CatalogInput = styled.input`
   filter: invert(1);
 `;
 
+export const UserDataContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: right;
+`;
+
+export const UserDataText = styled.h2`
+  margin-top: auto;
+  margin-bottom: auto;
+  color: #929292;
+  font-size: 14px;
+  font-weight: 500;
+  padding-right: 30px;
+`;
+
+export const ExitButton = styled.button`
+  text-decoration: none;
+  border: none;
+  border-radius: 12px;
+  background-color: transparent;
+  cursor: pointer;
+`;

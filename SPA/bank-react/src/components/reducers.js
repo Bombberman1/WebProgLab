@@ -1,3 +1,7 @@
+import storage from 'redux-persist/lib/storage';
+import { persistReducer } from 'redux-persist';
+
+
 const initialState = {
   cart: [],
 };
@@ -62,4 +66,9 @@ const cartReducer = (state = initialState, action) => {
   }
 };
 
-export default cartReducer;
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
+export default persistReducer(persistConfig, cartReducer);

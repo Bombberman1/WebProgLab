@@ -13,7 +13,7 @@ const checkStrings = (value) => {
 }
 
 const checkEmail = (email) => {
-    const regex = /[\w\.]+@[a-z]+\.[a-z]+/;
+    const regex = /^[\w\.]+@[a-z]+\.[a-z]+$/;
 
     return email.match(regex);
 } 

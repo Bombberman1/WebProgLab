@@ -7,6 +7,8 @@ import { validation } from "./checkout-components/validation";
 import { useEffect, useRef, useState } from "react";
 import ErrorMessage from "./checkout-components/ErrorMessage";
 import NovaPoshtaInfo from "./checkout-components/NovaPoshtaInfo";
+import { useDispatch, useSelector } from "react-redux";
+import { removeFromCart } from "../actions";
 
 
 function CheckoutPage() {
@@ -14,14 +16,21 @@ function CheckoutPage() {
     const [errorsText, setErrorsText] = useState([]);
     const [novaOffice, setNovaOffice] = useState(undefined);
     const prevErrorsTextRef = useRef(errorsText);
+    const dispatch = useDispatch();
+    const cartItems = useSelector((state) => state.cart);
 
     const apiKey = '3fed9303d9bac12288640094b5185684';
     const apiUrl = 'https://api.novaposhta.ua/v2.0/json/';
 
-    const getOfficesInTown = async (city, number) => {
+    const getOfficesInTown = async (city, number, errors, values) => {
         if (/[A-z]+/.test(city)) {
-            setErrorsText((errors) => [...errors, "Town should be UA language"]);
-            return;
+            if (errors.length) {
+                setErrorsText([...errors, "Town should be UA language"]);
+                return;
+            } else {
+                setErrorsText(["Town should be UA language"]);
+                return;
+            }
         }
         const response = await fetch(`${apiUrl}`, {
             method: 'POST',
@@ -44,22 +53,43 @@ function CheckoutPage() {
         if (data.success && data.data.length > 0) {
             const exactOffice = data.data.find((office) => (new RegExp(`(Відділення|Пункт|Поштомат "Нова Пошта") №${number}[:\\s]`)).test(office.Description));
             if (exactOffice) {
+                const errs = validation(values);
+                if (!errs.length) {
+                    setErrorsText([]);
+                }
                 return exactOffice;
             } else {
-                setErrorsText((errors) => [...errors, "Did you miss a few digits in № ?"]);
-                return;
+                if (errors.length) {
+                    setErrorsText([...errors, "Did you miss a few digits in № ?"]);
+                    return;
+                } else {
+                    setErrorsText(["Did you miss a few digits in № ?"]);
+                    return;
+                }
             }
         } else {
-            setErrorsText((errors) => [...errors, "Wrong UA town or post number"]);
-            return;
+            if (errors.length) {
+                setErrorsText([...errors, "Wrong UA town or post number"]);
+                return;
+            } else {
+                setErrorsText(["Wrong UA town or post number"]);
+                return;
+            }
         }
     };
 
+    const removeCart = () => {
+        cartItems.forEach((state) => {
+            dispatch(removeFromCart(state.bank.id));
+        });
+    }
+
     useEffect(() => {
         if (prevErrorsTextRef.current !== errorsText) {
-            if (!errorsText.length) {
+            if (errorsText.length === 0) {
                 alert('Wait 10 seconds');
                 const timeoutId = setTimeout(() => {
+                    removeCart();
                     navigate('/success');
                 }, 10000);
     
@@ -77,15 +107,21 @@ function CheckoutPage() {
                 initialValues={{ firstName: "", lastName: "", email: "", phone: "", age: "", address: "" }}
                 onSubmit={(values) => {
                     const errors = validation(values);
-                    setErrorsText([...errors]);
+                    if (errors.length) {
+                        setErrorsText([...errors]);
+                    }
 
                     const params = values.address.match(/([^\s,.:_]+|\S\d+)/g);
                     if (params.length === 2) {
-                        getOfficesInTown(params[0], params[1]).then((res) => {
+                        getOfficesInTown(params[0], params[1], errors, values).then((res) => {
                             setNovaOffice(res);
                         });
                     } else {
-                        setErrorsText([...errors, "Invalid format, example: Київ, 5"]);
+                        if (errors.length) {
+                            setErrorsText([...errors, "Invalid format, example: Київ, 5"]);
+                        } else {
+                            setErrorsText(["Invalid format, example: Київ, 5"]);
+                        }
                         setNovaOffice(undefined);
                     }
                 }}
